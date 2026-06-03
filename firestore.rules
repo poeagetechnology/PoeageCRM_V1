@@ -1,0 +1,31 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Users can only read/write their own profile
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Authenticated users can read/write all CRM data
+    // TODO: Add role-based rules per your RBAC policy
+    match /clients/{docId} {
+      allow read, write: if request.auth != null;
+    }
+    match /contacts/{docId} {
+      allow read, write: if request.auth != null;
+    }
+    match /projects/{docId} {
+      allow read, write: if request.auth != null;
+    }
+    match /tasks/{docId} {
+      allow read, write: if request.auth != null;
+    }
+    match /employees/{docId} {
+      allow read, write: if request.auth != null;
+    }
+    match /payroll/{docId} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}

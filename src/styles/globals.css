@@ -1,0 +1,240 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #f4f7fb;
+  --text: #111827;
+  --muted-text: rgba(17, 24, 39, 0.6);
+  --soft-text: rgba(17, 24, 39, 0.45);
+  --faint-text: rgba(17, 24, 39, 0.32);
+  --card-bg: #ffffff;
+  --input-bg: #ffffff;
+  --border-soft: rgba(15, 23, 42, 0.12);
+  --row-hover: rgba(15, 23, 42, 0.03);
+  --scroll-track: #e5e7eb;
+  --scroll-thumb: #9ca3af;
+}
+
+html.dark {
+  --bg: #080b12;
+  --text: #ffffff;
+  --muted-text: rgba(255, 255, 255, 0.6);
+  --soft-text: rgba(255, 255, 255, 0.45);
+  --faint-text: rgba(255, 255, 255, 0.32);
+  --card-bg: #13181f;
+  --input-bg: #1a2030;
+  --border-soft: rgba(255, 255, 255, 0.1);
+  --row-hover: rgba(255, 255, 255, 0.02);
+  --scroll-track: #0d1117;
+  --scroll-thumb: #212840;
+}
+
+@layer base {
+  * { border-color: var(--border-soft); }
+  body {
+    @apply font-sans antialiased;
+    background-color: var(--bg);
+    color: var(--text);
+    background-image: radial-gradient(at 20% 0%, rgba(59,130,246,0.04) 0px, transparent 60%),
+                      radial-gradient(at 80% 100%, rgba(139,92,246,0.04) 0px, transparent 60%);
+    min-height: 100vh;
+  }
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: var(--scroll-track); }
+  ::-webkit-scrollbar-thumb { background: var(--scroll-thumb); border-radius: 9999px; }
+  ::selection { @apply bg-brand-500/30; }
+}
+
+@layer components {
+  .card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-soft);
+    @apply rounded-xl shadow-card;
+  }
+  .card-hover {
+    @apply card transition-all duration-200;
+  }
+  .dark .card-hover {
+    @apply hover:bg-surface-700;
+  }
+  .light .card-hover:hover {
+    background-color: #f8fafc;
+  }
+  .btn-primary {
+    @apply bg-brand-500 hover:bg-brand-600 text-white font-medium px-4 py-2 rounded-lg
+           transition-all duration-150 flex items-center gap-2 text-sm shadow-glow-blue
+           active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-secondary {
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-soft);
+    color: var(--muted-text);
+    @apply font-medium px-4 py-2 rounded-lg transition-all duration-150
+           flex items-center gap-2 text-sm active:scale-95;
+  }
+  .btn-secondary:hover { filter: brightness(0.96); color: var(--text); }
+  .btn-danger {
+    @apply bg-danger/10 hover:bg-danger/20 border border-danger/20 text-danger
+           font-medium px-4 py-2 rounded-lg transition-all duration-150
+           flex items-center gap-2 text-sm active:scale-95;
+  }
+  .input {
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-soft);
+    color: var(--text);
+    @apply rounded-lg px-3 py-2 text-sm w-full focus:outline-none focus:border-brand-500/50
+           focus:ring-1 focus:ring-brand-500/20 transition-all duration-150;
+  }
+  .input::placeholder { color: color-mix(in srgb, var(--text) 35%, transparent); }
+  .label {
+    @apply text-xs font-medium uppercase tracking-wider mb-1 block;
+    color: color-mix(in srgb, var(--text) 60%, transparent);
+  }
+  .badge {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium;
+  }
+  .sidebar-link {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 cursor-pointer;
+    color: color-mix(in srgb, var(--text) 60%, transparent);
+  }
+  .sidebar-link:hover { color: var(--text); background: color-mix(in srgb, var(--text) 8%, transparent); }
+  .sidebar-link.active {
+    @apply text-white bg-brand-500/10 border border-brand-500/20;
+  }
+  .stat-card {
+    @apply card p-5 flex flex-col gap-3;
+  }
+  .page-header {
+    @apply flex items-center justify-between mb-6;
+  }
+  .page-title {
+    @apply font-display text-2xl font-bold;
+    color: var(--text);
+  }
+  .table-row {
+    @apply border-b transition-colors duration-100;
+    border-color: var(--border-soft);
+  }
+  .table-row:hover {
+    background: var(--row-hover);
+  }
+  .th {
+    @apply text-left text-xs font-medium uppercase tracking-wider py-3 px-4;
+    color: color-mix(in srgb, var(--text) 50%, transparent);
+  }
+  .td {
+    @apply py-3 px-4 text-sm;
+    color: color-mix(in srgb, var(--text) 85%, transparent);
+  }
+}
+
+.bg-app { background-color: var(--bg); }
+.bg-sidebar { background-color: color-mix(in srgb, var(--card-bg) 90%, var(--bg)); }
+
+.text-theme { color: var(--text); }
+.text-theme-muted { color: var(--muted-text); }
+.text-theme-soft { color: var(--soft-text); }
+.text-theme-faint { color: var(--faint-text); }
+
+/* Keep existing utility-heavy pages readable in light mode */
+.light .text-white { color: var(--text) !important; }
+.light .text-white\/90 { color: color-mix(in srgb, var(--text) 90%, transparent) !important; }
+.light .text-white\/80 { color: color-mix(in srgb, var(--text) 80%, transparent) !important; }
+.light .text-white\/70 { color: color-mix(in srgb, var(--text) 70%, transparent) !important; }
+.light .text-white\/60 { color: color-mix(in srgb, var(--text) 60%, transparent) !important; }
+.light .text-white\/50 { color: color-mix(in srgb, var(--text) 50%, transparent) !important; }
+.light .text-white\/40 { color: color-mix(in srgb, var(--text) 40%, transparent) !important; }
+.light .text-white\/30 { color: color-mix(in srgb, var(--text) 30%, transparent) !important; }
+.light .text-white\/20 { color: color-mix(in srgb, var(--text) 20%, transparent) !important; }
+.light .text-white\/10 { color: color-mix(in srgb, var(--text) 10%, transparent) !important; }
+
+.light .hover\:text-white:hover { color: var(--text) !important; }
+.light .hover\:text-white\/70:hover { color: color-mix(in srgb, var(--text) 70%, transparent) !important; }
+.light .hover\:text-white\/60:hover { color: color-mix(in srgb, var(--text) 60%, transparent) !important; }
+.light .group:hover .group-hover\:text-white { color: var(--text) !important; }
+
+/* Card content needs stronger contrast in light mode */
+.light .card .text-white\/60,
+.light .stat-card .text-white\/60 { color: color-mix(in srgb, var(--text) 72%, transparent) !important; }
+
+.light .card .text-white\/50,
+.light .stat-card .text-white\/50 { color: color-mix(in srgb, var(--text) 65%, transparent) !important; }
+
+.light .card .text-white\/40,
+.light .stat-card .text-white\/40 { color: color-mix(in srgb, var(--text) 58%, transparent) !important; }
+
+.light .card .text-white\/30,
+.light .stat-card .text-white\/30 { color: color-mix(in srgb, var(--text) 50%, transparent) !important; }
+
+.light .card .text-white\/20,
+.light .stat-card .text-white\/20 { color: color-mix(in srgb, var(--text) 42%, transparent) !important; }
+
+/* Bold copy should always stay clear in light mode */
+.light .font-semibold.text-white,
+.light .font-bold.text-white,
+.light .font-extrabold.text-white,
+.light .font-black.text-white { color: var(--text) !important; }
+
+.light .font-semibold.text-white\/90,
+.light .font-bold.text-white\/90,
+.light .font-extrabold.text-white\/90,
+.light .font-black.text-white\/90 { color: color-mix(in srgb, var(--text) 96%, transparent) !important; }
+
+.light .font-semibold.text-white\/80,
+.light .font-bold.text-white\/80,
+.light .font-extrabold.text-white\/80,
+.light .font-black.text-white\/80 { color: color-mix(in srgb, var(--text) 92%, transparent) !important; }
+
+.light .font-semibold.text-white\/70,
+.light .font-bold.text-white\/70,
+.light .font-extrabold.text-white\/70,
+.light .font-black.text-white\/70 { color: color-mix(in srgb, var(--text) 88%, transparent) !important; }
+
+.light .font-semibold.text-white\/60,
+.light .font-bold.text-white\/60,
+.light .font-extrabold.text-white\/60,
+.light .font-black.text-white\/60 { color: color-mix(in srgb, var(--text) 84%, transparent) !important; }
+
+.light .font-semibold.text-white\/50,
+.light .font-bold.text-white\/50,
+.light .font-extrabold.text-white\/50,
+.light .font-black.text-white\/50 { color: color-mix(in srgb, var(--text) 80%, transparent) !important; }
+
+.light .font-semibold.text-white\/40,
+.light .font-bold.text-white\/40,
+.light .font-extrabold.text-white\/40,
+.light .font-black.text-white\/40 { color: color-mix(in srgb, var(--text) 74%, transparent) !important; }
+
+.light .font-semibold.text-white\/30,
+.light .font-bold.text-white\/30,
+.light .font-extrabold.text-white\/30,
+.light .font-black.text-white\/30 { color: color-mix(in srgb, var(--text) 68%, transparent) !important; }
+
+/* Remap dark-surface utility classes for dialogs/popups in light mode */
+.light .bg-surface-800 { background-color: var(--card-bg) !important; }
+.light .bg-surface-700 { background-color: color-mix(in srgb, var(--card-bg) 88%, #e2e8f0) !important; }
+.light .hover\:bg-surface-600:hover { background-color: #e2e8f0 !important; }
+
+/* Keep borders/overlays visible on light surfaces */
+.light .border-white\/10 { border-color: var(--border-soft) !important; }
+.light .border-white\/5 { border-color: color-mix(in srgb, var(--text) 10%, transparent) !important; }
+.light .border-white\/20 { border-color: color-mix(in srgb, var(--text) 18%, transparent) !important; }
+
+.light .bg-white\/\[0\.02\] { background-color: color-mix(in srgb, var(--text) 2%, transparent) !important; }
+.light .bg-white\/5 { background-color: color-mix(in srgb, var(--text) 5%, transparent) !important; }
+.light .bg-white\/10 { background-color: color-mix(in srgb, var(--text) 8%, transparent) !important; }
+.light .bg-white\/20 { background-color: color-mix(in srgb, var(--text) 14%, transparent) !important; }
+
+.light .hover\:bg-white\/5:hover { background-color: color-mix(in srgb, var(--text) 6%, transparent) !important; }
+.light .hover\:bg-white\/10:hover { background-color: color-mix(in srgb, var(--text) 10%, transparent) !important; }
+
+/* Animations */
+.animate-in { animation: slideUp 0.3s ease forwards; }
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom focus ring */
+*:focus-visible { outline: 2px solid rgba(59,130,246,0.5); outline-offset: 2px; }
