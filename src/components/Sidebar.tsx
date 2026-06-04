@@ -12,6 +12,8 @@ import {
   Zap,
   BarChart2,
   User,
+  Clock,
+  History,
 } from "lucide-react";
 import { useAuthStore } from "@/hooks/useAuthStore";
 import { authService } from "@/services/authService";
@@ -27,6 +29,12 @@ const NAV = [
   { to: "/employees", icon: <UserCog size={17} />, label: "Employees" },
   { to: "/payroll", icon: <CreditCard size={17} />, label: "Payroll" },
   { to: "/reports", icon: <BarChart2 size={17} />, label: "Reports" },
+  { to: "/punch-in-out", icon: <Clock size={17} />, label: "Punch In/Out" },
+  {
+    to: "/attendance-history",
+    icon: <History size={17} />,
+    label: "Attendance",
+  },
 ];
 
 export function Sidebar() {

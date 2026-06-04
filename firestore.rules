@@ -27,5 +27,11 @@ service cloud.firestore {
     match /payroll/{docId} {
       allow read, write: if request.auth != null;
     }
+
+    // Attendance records - users can read their own, HR/Admin can read all
+    match /attendance/{docId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
   }
 }

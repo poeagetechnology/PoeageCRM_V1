@@ -18,6 +18,8 @@ import { EmployeesPage } from "@/features/employees/EmployeesPage";
 import { PayrollPage } from "@/features/payroll/PayrollPage";
 import { ReportsPage } from "@/features/reports/ReportsPage";
 import { ProfilePage } from "@/features/profile/ProfilePage";
+import { PunchInOutPage } from "@/features/attendance/PunchInOutPage";
+import { AttendanceHistoryPage } from "@/features/attendance/AttendanceHistoryPage";
 
 const qc = new QueryClient({
   defaultOptions: { queries: { retry: 1, staleTime: 30_000 } },
@@ -75,6 +77,11 @@ export default function App() {
               <Route path="payroll" element={<PayrollPage />} />
               <Route path="reports" element={<ReportsPage />} />
               <Route path="profile" element={<ProfilePage />} />
+              <Route path="punch-in-out" element={<PunchInOutPage />} />
+              <Route
+                path="attendance-history"
+                element={<AttendanceHistoryPage />}
+              />
             </Route>
             <Route path="*" element={<Navigate to="/dashboard" replace />} />
           </Routes>
