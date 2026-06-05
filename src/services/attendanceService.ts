@@ -97,7 +97,10 @@ export const attendanceService = {
     );
 
     if (docs.docs.length === 0) return null;
-    return { ...docs.docs[0].data(), id: docs.docs[0].id } as AttendanceRecord;
+    return {
+      ...(docs.docs[0].data() as Record<string, any>),
+      id: docs.docs[0].id,
+    } as AttendanceRecord;
   },
 
   async getUserAttendance(userId: string, limit: number = 50) {
@@ -110,7 +113,7 @@ export const attendanceService = {
     );
 
     return docs.docs.slice(0, limit).map((doc) => ({
-      ...doc.data(),
+      ...(doc.data() as Record<string, any>),
       id: doc.id,
     })) as AttendanceRecord[];
   },
@@ -121,7 +124,7 @@ export const attendanceService = {
     );
 
     return docs.docs.slice(0, limit).map((doc) => ({
-      ...doc.data(),
+      ...(doc.data() as Record<string, any>),
       id: doc.id,
     })) as AttendanceRecord[];
   },
@@ -152,7 +155,7 @@ export const attendanceService = {
 
     const docs = await getDocs(q);
     return docs.docs.map((doc) => ({
-      ...doc.data(),
+      ...(doc.data() as Record<string, any>),
       id: doc.id,
     })) as AttendanceRecord[];
   },
