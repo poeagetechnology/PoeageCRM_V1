@@ -90,7 +90,7 @@ export function PunchInOutPage() {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
+      {/* Headers */}
       <div>
         <h1 className="font-display font-bold text-3xl text-white mb-1">
           Time Tracking
